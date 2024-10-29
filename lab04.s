@@ -14,13 +14,15 @@ marianna: .string "Marianna"
 # The labels below are replaced by the respective addresses
 arraySorted:    .word maria, marianna, marios, markos
 
-arrayNotSorted: .word marianna, markos, maria
+arrayNotSorted: .word marianna, markos, maria, marios
 
 .text
 
-            la   a0, arrayNotSorted
+            li   a0, 4
             li   a1, 4
-            jal  recCheck
+            blt  a0, a1, recCheck
+            
+            #jal  recCheck
 
             li   a7, 10
             ecall
@@ -30,6 +32,12 @@ str_ge:
 # Write the subroutine code here
 #  You may move jr ra   if you wish.
 #---------
+            lbu t0, 0(a0)
+            lbu t1, 0(a1)
+            sub t2, t0, t1
+            addi a0, a0, 1
+            addi a1, a1, 1
+            j str_ge
             jr   ra
  
 # ----------------------------------------------------------------------------
@@ -46,4 +54,10 @@ recCheck:
 # Write the subroutine code here
 #  You may move jr ra   if you wish.
 #---------
+            add a2, a0, zero
+            add a3, a1, zero
+            lw a0, 4(a2)
+            lw a1, 0(a2)
+            
+            j str_ge
             jr   ra
