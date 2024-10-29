@@ -11,7 +11,7 @@ marianna: .string "Marianna"
 
 # These are string arrays
 # The labels below are replaced by the respective addresses
-arraySorted:    .word maria, marianna, marios, markos, naveen
+arraySorted:    .word maria, marianna, marios, markos
 
 arrayNotSorted: .word marianna, markos, maria
 
