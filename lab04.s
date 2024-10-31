@@ -62,28 +62,26 @@ recCheck:
 #---------
 # Write the subroutine code here
 #  You may move jr ra   if you wish.
-    add a2, zero, a0
-    add a3, zero, a1
-    j rec
-rec:
-    slti t0, a3, 2
+    slti t0, a1, 2
     beq t0, zero, check
     li a0, 1
     jr ra
-    
 check:
-    addi sp, sp, -4
-    sw ra, 0(sp)
-    lw a1, 0(a2)
-    lw a0, 4(a2)
+    addi sp, sp,   -12
+    sw   a1, 0(sp)
+    sw   a0, 4(sp)
+    sw   ra, 8(sp)
+    lw   a1, 0(a0)
+    lw   a0, 4(a0)
     jal str_ge
-    beq a0, zero, exit
-    addi a2, a2, 4
-    addi a3, a3, -1
-    jal rec
-    
+    beq  a0, zero, exit
+    lw   a1, 0(sp)
+    lw   a0, 4(sp)
+    addi a0, a0, 4
+    addi a1, a1, -1
+    jal recCheck    
 exit:
-    lw ra, 0(sp)
-    addi sp, sp, 4
+    lw ra, 8(sp)
+    addi sp, sp, 12
     jr ra
 #---------
